@@ -1,0 +1,32 @@
+#!/bin/bash
+
+# Check if the script is being run as root
+if [[ $EUID -ne 0 ]]; then
+   echo "This script must be run as root" 
+   exit 1
+fi
+
+# Set the interface name of the rtl8812au adapter
+interface="wlan0"
+
+# Check if the rtl8812au adapter is already in managed mode
+if [[ $(iwconfig $interface | grep "Mode:Managed") ]]; then
+    echo "The interface $interface is already in managed mode."
+    exit 0
+fi
+
+# Disable the interface
+ifconfig $interface down
+
+# Set the interface to managed mode
+iwconfig $interface mode managed
+
+# Enable the interface
+ifconfig $interface up
+
+# Check if the interface is now in managed mode
+if [[ $(iwconfig $interface | grep "Mode:Managed") ]]; then
+    echo "The interface $interface has been successfully set to managed mode."
+else
+    echo "Failed to set the interface $interface to managed mode."
+fi
