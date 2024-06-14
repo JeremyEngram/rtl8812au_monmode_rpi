@@ -1,2 +1,2 @@
-# rtl8812auMonmode
-Script to fully automate rpi monitor mode
+# RTL8812AU Monmode
+Script to fully automate rpi monitor mode for alpha networks adapters - (RPI USE ONLY)
